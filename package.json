@@ -20,7 +20,9 @@
     "express": "~3.4.7",
     "oauth": "~0.9.11",
     "ejs": "~0.8.5",
-    "leaflet": "~0.7.1"
+    "leaflet": "~0.7.1",
+    "superagent": "~0.16.0",
+    "underscore": "~1.5.2"
   },
   "devDependencies": {
     "mocha": "*",

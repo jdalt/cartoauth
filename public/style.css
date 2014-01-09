@@ -14,15 +14,41 @@ body, html, #map {
   height: 100%;
   float: left;
   box-shadow: 0 0 7px #000;
+  overflow: hidden;
 }
 
 #ui-container {
-  margin-top: 2em;
+  height: 10%;
   text-align: center;
 }
 
+#tweet-container {
+  height: 90%;
+  overflow-y: auto;
+}
+
 .map-input {
+  margin-top: 3%;
+}
+
+.map-input a {
   text-decoration: none;
+}
+
+.tweet {
+  box-shadow: 0 0 7px #444;
+  width: 85%;
+  margin: 12px auto;
+  padding: 5px;
+}
+
+.tweet h4 {
+  margin: 0;
+  padding: 0 0 3px 0;
+}
+
+.tweet p {
+  margin: 0;
 }
 
 .leaflet-container {

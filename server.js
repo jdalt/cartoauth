@@ -32,8 +32,10 @@ app.get('/twitter/callback', function(req, res){
     req.session.oauth_token, 
     req.session.oauth_token_secret, 
     req.param('oauth_verifier'), 
-    function(error, oauth_access_token, oauth_access_token_secret, results2) {
+    function(error, oauth_access_token, oauth_access_token_secret, userData) {
       if(checkError(error, res)) return;
+
+      console.log(userData);
       
       // store the access token in the session
       req.session.oauth_access_token = oauth_access_token;

@@ -12,22 +12,27 @@
   <body>
     <div id="ui">
       <div id="ui-container">
-        <a class="map-input" href="twitter/login">Login to Twitter</a>
-        <br />
-        <input id="map-search" type="text" />
-        <button onclick="UI.handleSearch()" >Search Twitter</button>
+        <div class="map-input">
+          <a href="twitter/login">Login to Twitter</a>
+        </div>
+        <div class="map-input">
+          <input id="map-search" type="text" />
+          <button onclick="doSearch()">Search Twitter</button>
+        </div>
       </div>
+      <div id="tweet-container"></div>
     </div>
     <div id="map">
     </div>
-    <script src="dist/app-dist.js"></script>
-    <script>
-      var UI = {};
-      UI.handleSearch = function() {
-        var query = document.querySelector('#map-search').value;
-        console.log(query);
-      }
+    <script type="text/template" id="tweet-template">
+      <section class="tweet">
+        <h4>{{ tweet.user.screen_name }}</h4>
+        <img src="{{ tweet.user.profile_image_url }}" />
+        <p>{{ tweet.text }}</p>
+      </section>
     </script>
+          
+    <script src="dist/app-dist.js"></script>
   </body>
 
 </html>
