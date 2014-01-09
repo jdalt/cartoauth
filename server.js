@@ -2,6 +2,9 @@ var twitter = require('./lib/twitterAuth.js').Auth(),
   express = require('express'),
   app = exports.app = express();
 
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
 app.use(express.cookieParser());
 app.use(express.session({
   secret  : "omgHeavingHippoRageVeloSupra"
@@ -10,7 +13,7 @@ app.use(express.session({
 console.log('smoke on the water');
 
 app.get('/', function(req, res){
-    res.send('Hello World');
+    res.render('home.html');
 });
 
 app.get('/twitter/login', function(req, res){

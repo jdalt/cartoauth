@@ -1,5 +1,5 @@
 var request = require('supertest'),
-  app = require('../app.js').app,
+  app = require('../server.js').app,
   should = require('should'),
   qs = require('querystring'),
   app;
