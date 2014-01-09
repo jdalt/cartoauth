@@ -1,4 +1,4 @@
-var OAuth = require('oauth').OAuth,
+var twitter = require('./lib/twitterAuth.js').Auth(),
   express = require('express'),
   app = exports.app = express();
 
@@ -14,21 +14,18 @@ app.get('/', function(req, res){
 });
 
 app.get('/twitter/login', function(req, res){
-  var oauth = twitterOAuth();
-  oauth.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results) {
+  twitter.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results) {
     if(checkError(error, res)) return;
 
     req.session.oauth_token = oauth_token;
     req.session.oauth_token_secret = oauth_token_secret;
-    req.session.oa = oauth;
 
-    res.redirect("https://api.twitter.com/oauth/authorize?oauth_token="+oauth_token);
+    res.redirect(twitter.authorizeUrl(oauth_token));
   });
 });
 
 app.get('/twitter/callback', function(req, res){
-  var oauth = twitterOAuth();
-    oauth.getOAuthAccessToken(
+  twitter.getOAuthAccessToken(
     req.session.oauth_token, 
     req.session.oauth_token_secret, 
     req.param('oauth_verifier'), 
@@ -38,16 +35,13 @@ app.get('/twitter/callback', function(req, res){
       // store the access token in the session
       req.session.oauth_access_token = oauth_access_token;
       req.session.oauth_access_token_secret = oauth_access_token_secret;
-      res.redirect("/twitter/search");
+      res.redirect("/twitter/search?q=meh");
   });
-  
 });
 
 app.get('/twitter/search', function(req, res){
-  var oauth = twitterOAuth();
-  oauth.getProtectedResource(
-    "https://api.twitter.com/1.1/search/tweets.json?q=asdf",
-    "GET",
+  twitter.search(
+    req.param('q'), 
     req.session.oauth_access_token,
     req.session.oauth_access_token_secret,
     function(error, data, response) {
@@ -66,17 +60,6 @@ function checkError(error, res) {
     return true;
   }
   return false;
-}
-
-function twitterOAuth() {
-  var oauth = new OAuth( 'https://api.twitter.com/oauth/request_token',
-                      'https://api.twitter.com/oauth/access_token',
-                      'GRaDX5TBlPNEZMEeuFFobg',
-                      '9JC8QFadrvNPRuiNFE0KQlaMKsKH4FF0qbCx3o',
-                      '1.0A',
-                      'http://localhost:3000/twitter/callback',
-                      'HMAC-SHA1');
-  return oauth;
 }
 
 app.listen(3000);
