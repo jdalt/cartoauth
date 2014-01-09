@@ -1,3 +1,5 @@
+var assert = require('assert');
+
 describe('OAuth1.0A',function(){
   var OAuth = require('oauth');
 
@@ -18,8 +20,7 @@ describe('OAuth1.0A',function(){
       '1173904848-TuDZLMQdvvXmAu9m7WGBFhCwDWpjKZqEdiZBvC3', //test user token
       'cuwVkYJF6sEI10p2879ZYBmfD4VpywTnjOrnRhuxkoT1Z', //test user secret            
       function (e, data, res){
-        if (e) console.error(e);        
-        console.log(require('util').inspect(data));
+        assert.equal(e, null, "oauth get returned with an error");
         done();      
       }
     ); 
