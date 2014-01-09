@@ -5,30 +5,26 @@ body, html, #map {
   margin: 0;
 }
 #map {
-  position: relative;
-}
-
-#ui-container {
-  position: absolute;
-  width: 100%;
-  z-index: 1000;
+  width: 70%;
+  z-index: -1;
 }
 
 #ui {
   width: 30%;
-  height: 55px;
-  background-color: #fff;
-  margin: 0 auto;
-  padding: 1em 3em;
-  opacity: .8;
-  border-radius: 7px;
+  height: 100%;
+  float: left;
+  box-shadow: 0 0 7px #000;
+}
+
+#ui-container {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.map-input {
+  text-decoration: none;
 }
 
 .leaflet-container {
   cursor: auto;
-}
-
-/* Only for editor */
-#map-name-inp{
-  width: 100px;
 }

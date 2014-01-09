@@ -7,7 +7,7 @@ app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.use(express.cookieParser());
 app.use(express.session({
-  secret  : "omgHeavingHippoRageVeloSupra"
+  secret: "omgHeavingHippoRageVeloSupra"
 }));
 
 console.log('smoke on the water');
@@ -38,7 +38,7 @@ app.get('/twitter/callback', function(req, res){
       // store the access token in the session
       req.session.oauth_access_token = oauth_access_token;
       req.session.oauth_access_token_secret = oauth_access_token_secret;
-      res.redirect("/twitter/search?q=meh");
+      res.redirect("/");
   });
 });
 

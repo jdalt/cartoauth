@@ -1,6 +1,6 @@
 var L = require('leaflet');
 
-var map = L.map('map').setView([50,30], 7);
+var map = L.map('map').setView([40,-90], 5);
 
 L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
   attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
