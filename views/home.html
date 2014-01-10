@@ -34,18 +34,25 @@
         <img src="{{= tweet.user.profile_image_url }}" />
         <p>{{= tweet.text }}</p>
         {{ if(is_search) { }}
-        <button onclick="lookupTimeline('{{= tweet.user.id }}', '{{= tweet.user.screen_name }}')">Timeline</button>
+          <button onclick="lookupTimeline('{{= tweet.user.id }}', '{{= tweet.user.screen_name }}')">Timeline</button>
+        {{ } }}
+        {{ if(marker_index != null) { }}
+          <button onclick="panTo('{{= marker_index }}')">Map</button>
         {{ } }}
       </section>
     </script>
 
     <script type="text/template" id="search-template">
-      <h2>Results for: {{= query }} </h2>
+      <div class="action-info">
+        <h2>Results for: {{= query }} </h2>
+      </div>
       {{= tweet_html }}
     </script>
 
     <script type="text/template" id="timeline-template">
-      <h2>Timeline for: {{= screen_name }} </h2>
+      <div class="action-info">
+        <h2>Timeline for: {{= screen_name }} </h2>
+      </div>
       <button onclick="backToTweets()">Back</button>
       {{= tweet_html }}
     </script>
