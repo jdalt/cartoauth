@@ -13,7 +13,7 @@ app.use(express.session({
 console.log('smoke on the water');
 
 app.get('/', function(req, res){
-    res.render('home.html');
+    res.render('home.html', { user: req.session.user_twitter_data });
 });
 
 app.get('/twitter/login', function(req, res){
@@ -35,11 +35,10 @@ app.get('/twitter/callback', function(req, res){
     function(error, oauth_access_token, oauth_access_token_secret, userData) {
       if(checkError(error, res)) return;
 
-      console.log(userData);
-      
-      // store the access token in the session
+      req.session.user_twitter_data = userData;
       req.session.oauth_access_token = oauth_access_token;
       req.session.oauth_access_token_secret = oauth_access_token_secret;
+
       res.redirect("/");
   });
 });
@@ -47,6 +46,23 @@ app.get('/twitter/callback', function(req, res){
 app.get('/twitter/search', function(req, res){
   twitter.search(
     req.param('q'), 
+    req.session.oauth_access_token,
+    req.session.oauth_access_token_secret,
+    function(error, data, response) {
+      if(checkError(error, res)) return;
+
+      res.json(data);
+    }
+  );
+});
+
+app.get('/twitter/timeline/:id', function(req, res){
+  if(!req.param('id')) {
+    checkError('No id in request.', res);
+    return;
+  }
+  twitter.timeline(
+    req.param('id'),
     req.session.oauth_access_token,
     req.session.oauth_access_token_secret,
     function(error, data, response) {

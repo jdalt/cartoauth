@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>Train Game</title>
+    <title>Fantastic Twitter Map</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="leaflet.css" />
@@ -12,13 +12,17 @@
   <body>
     <div id="ui">
       <div id="ui-container">
+        <% if(user == null) { %>
         <div class="map-input">
-          <a href="twitter/login">Login to Twitter</a>
+          <a href="twitter/login">Log in to Twitter</a>
         </div>
+        <% } else { %>
+        <h3><%= user.screen_name %></h3>
         <div class="map-input">
           <input id="map-search" type="text" />
           <button onclick="doSearch()">Search Twitter</button>
         </div>
+        <% } %>
       </div>
       <div id="tweet-container"></div>
     </div>
@@ -26,10 +30,24 @@
     </div>
     <script type="text/template" id="tweet-template">
       <section class="tweet">
-        <h4>{{ tweet.user.screen_name }}</h4>
-        <img src="{{ tweet.user.profile_image_url }}" />
-        <p>{{ tweet.text }}</p>
+        <h4>{{= tweet.user.screen_name }}</h4>
+        <img src="{{= tweet.user.profile_image_url }}" />
+        <p>{{= tweet.text }}</p>
+        {{ if(is_search) { }}
+        <button onclick="lookupTimeline('{{= tweet.user.id }}', '{{= tweet.user.screen_name }}')">Timeline</button>
+        {{ } }}
       </section>
+    </script>
+
+    <script type="text/template" id="search-template">
+      <h2>Results for: {{= query }} </h2>
+      {{= tweet_html }}
+    </script>
+
+    <script type="text/template" id="timeline-template">
+      <h2>Timeline for: {{= screen_name }} </h2>
+      <button onclick="backToTweets()">Back</button>
+      {{= tweet_html }}
     </script>
           
     <script src="dist/app-dist.js"></script>
