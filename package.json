@@ -1,6 +1,6 @@
 {
   "name": "twitter_oauth",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "This is a sparky little twitter oauth client.",
   "main": "server.js",
   "directories": {
@@ -28,5 +28,8 @@
     "mocha": "*",
     "supertest": "0.3.x",
     "should": "~2.1.1"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }

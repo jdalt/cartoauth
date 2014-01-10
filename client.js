@@ -14,7 +14,7 @@ var markers = [];
 
 /*** UI Functions ***/
 // Normally I would use angular or jquery to do the event binding and DOM
-// updating but this was relatively simple so I went with native DOM for this app.
+// updating but this was relatively simple so I went with native DOM.
 
 // Use anonymous functions for callbacks to capture request data within
 // closures.
