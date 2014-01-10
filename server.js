@@ -83,4 +83,5 @@ function checkError(error, res) {
   return false;
 }
 
-app.listen(3000);
+var port = process.env.PORT || 3000;
+app.listen(port);
